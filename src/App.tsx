@@ -17,12 +17,15 @@ function App() {
       completed: false,
     },
   ];
-  const [todos, setTodos] = useState(initialTodos);
+  const savedTodos = localStorage.getItem('todos');
+  const [todos, setTodos] = useState(
+    savedTodos !== null ? (JSON.parse(savedTodos) as todo[]) : initialTodos
+  );
 
   return (
     <div className="mx-auto mt-[75px] max-w-[500px] rounded-md px-5 py-3 shadow">
       <h1 className="text-[25px]">To do</h1>
-      <div className="mb-3 flex flex-col pt-3 h-[400px] overflow-y-auto">
+      <div className="mb-3 flex h-[400px] flex-col overflow-y-auto pt-3">
         {todos.length ? (
           todos.map(todo => (
             <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />

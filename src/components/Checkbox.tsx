@@ -8,19 +8,22 @@ type CheckboxProps = {
 const Checkbox = ({ todo, setTodos }: CheckboxProps) => {
   const { id, text, completed } = todo;
 
+  const toggleCompleted = () =>
+    setTodos(todos => {
+      const newTodos = todos.map(todo =>
+        todo.id === id ? { ...todo, completed: !completed } : todo
+      );
+      localStorage.setItem('todos', JSON.stringify(newTodos));
+      return newTodos;
+    });
+
   return (
     <div>
       <input
         type="checkbox"
         id={id}
         checked={completed}
-        onChange={() =>
-          setTodos(todos =>
-            todos.map(todo =>
-              todo.id === id ? { ...todo, completed: !completed } : todo
-            )
-          )
-        }
+        onChange={toggleCompleted}
         className="mr-3 appearance-none rounded-xl border-gray-300
           checked:bg-spec-green checked:bg-none hover:border-none
           hover:bg-spec-green hover:shadow-md checked:hover:bg-green-600

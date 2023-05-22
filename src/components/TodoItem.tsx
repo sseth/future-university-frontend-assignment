@@ -9,7 +9,11 @@ type TodoItemProps = {
 
 const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
   const deleteTodo = (id: string) => {
-    setTodos(todos => todos.filter(todo => todo.id !== id));
+    setTodos(todos => {
+      const newTodos = todos.filter(todo => todo.id !== id);
+      localStorage.setItem('todos', JSON.stringify(newTodos));
+      return newTodos;
+    });
   };
 
   return (

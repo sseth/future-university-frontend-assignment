@@ -13,10 +13,12 @@ const AddTodo = ({ setTodos }: AddTodoProps) => {
   const [text, setText] = useState('');
 
   const addTodo = () => {
-    setTodos((todos: todo[]) => [
-      ...todos,
-      { id: uniqid(), text, completed: false },
-    ]);
+    setTodos((todos: todo[]) => {
+      const newTodos = [...todos, { id: uniqid(), text, completed: false }];
+      localStorage.setItem('todos', JSON.stringify(newTodos));
+      return newTodos;
+    });
+
     setText('');
   };
 
