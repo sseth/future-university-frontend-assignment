@@ -13,6 +13,8 @@ const AddTodo = ({ setTodos }: AddTodoProps) => {
   const [text, setText] = useState('');
 
   const addTodo = () => {
+    if (text === '') return;
+    
     setTodos((todos: todo[]) => {
       const newTodos = [...todos, { id: uniqid(), text, completed: false }];
       localStorage.setItem('todos', JSON.stringify(newTodos));
